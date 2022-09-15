@@ -14,19 +14,11 @@ func main() {
 
 	app.Get("/hello", handlers.Hello)
 
-	// TODO: gofiber/websocket
-	// app.Use("/room/*", func(c *fiber.Ctx) error {
-	// 	// IsWebSocketUpgrade returns true if the client
-	// 	// requested upgrade to the WebSocket protocol.
-	// 	if websocket.IsWebSocketUpgrade(c) {
-	// 		c.Locals("allowed", true) // ?
-	// 		return c.Next()
-	// 	}
-	// 	return fiber.ErrUpgradeRequired
-	// })
-
 	app.Get("/room/create", handlers.CreateRoom)
 	app.Get("/room/:id", websocket.New(handlers.JoinRoom))
+	// How to log ws events ?
+	app.Get("/rtc/ws", websocket.New(handlers.InitWebRTC))
 
-	helpers.Must(app.Listen(":8000"))
+	// helpers.Must(app.Listen(":8000"))
+	go helpers.Must(app.Listen(":8000"))
 }

@@ -6,7 +6,7 @@ tmp_dir = "tmp"
   args_bin = []
   bin = "tmp\\main.exe"
   cmd = "go build -o ./tmp/main.exe ./cmd"
-  delay = 1500
+  delay = 500
   exclude_dir = ["assets", "tmp", "vendor", "testdata"]
   exclude_file = []
   exclude_regex = ["_test.go"]
@@ -21,7 +21,7 @@ tmp_dir = "tmp"
   stop_on_error = true
 
 [color]
-  app = ""
+  app = "orange"
   build = "yellow"
   main = "magenta"
   runner = "green"

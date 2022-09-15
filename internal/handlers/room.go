@@ -104,6 +104,7 @@ func broadcaster() {
 		for _, client := range _roomsMap.rooms[msg.RoomID] {
 			// if client.Conn != msg.Client {
 			err := client.Conn.WriteJSON(msg.Body)
+			// err := client.Conn.WriteMessage(msg.Body)
 			// err := client.Conn.WriteMessage(1, (msg.Body.([]uint8))) // * sends []byte
 			if err != nil {
 				log.Println(err)
@@ -177,8 +178,8 @@ func JoinRoom(c *websocket.Conn) /* void */ {
 		}
 
 		// broadcast <- BroadcastMsg{Body: &fiber.Map{"msg": m}, RoomID: roomID, Client: c}
-		// broadcast <- BroadcastMsg{Body: string(m), RoomID: roomID, Client: c}
-		broadcast <- BroadcastMsg{Body: m, RoomID: roomID, Client: c}
+		broadcast <- BroadcastMsg{Body: string(m), RoomID: roomID, Client: c}
+		// broadcast <- BroadcastMsg{Body: m, RoomID: roomID, Client: c} // ! spits base64 with "/" if c.WriteJSON
 	}
 
 	// *
